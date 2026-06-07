@@ -1,0 +1,64 @@
+services:
+  db:
+    build: ./database
+    image: lged-gis/db:dev
+    container_name: lged_db
+    environment:
+      POSTGRES_DB: lged_gis
+      POSTGRES_USER: lged
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lged_dev_pw}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lged -d lged_gis"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    image: lged-gis/backend:dev
+    container_name: lged_backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://lged:${POSTGRES_PASSWORD:-lged_dev_pw}@db:5432/lged_gis
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change_me_in_prod}
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      # Allow the dockerized frontend (port 3000) and Vite dev server (5173).
+      CORS_ORIGINS: "http://localhost:5173,http://localhost:3000"
+      ENVIRONMENT: development
+      LOG_LEVEL: INFO
+      SEED_ON_STARTUP: "true"
+      # Set true only to force demo passwords back to seed values on each backend start.
+      SEED_RESET_DEMO_PASSWORDS: "false"
+      SEED_IMPORT_BOUNDARIES: "true"
+      # Hot reload for development. Comment out for production-like runs.
+      UVICORN_RELOAD: "1"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      # Dev hot reload — mounts source over the image.
+      # For production-style runs, comment out this volume mount and unset UVICORN_RELOAD.
+      - ./backend:/app
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: lged-gis/frontend:dev
+    container_name: lged_frontend
+    depends_on:
+      - backend
+    ports:
+      # Host port 3000 -> nginx 80 inside the container.
+      - "3000:80"
+    restart: unless-stopped
+
+volumes:
+  db_data:

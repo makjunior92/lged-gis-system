@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+  }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* Make sure Leaflet container sizes correctly inside flex layouts. */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Pretty default form styles fallback. */
+input, select, textarea {
+  font: inherit;
+}
+
+@keyframes score-ring-fill {
+  from {
+    stroke-dashoffset: var(--ring-c);
+  }
+  to {
+    stroke-dashoffset: var(--ring-offset);
+  }
+}
+
+@keyframes score-number-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes score-label-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes score-tick-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.score-ring-arc {
+  animation: score-ring-fill var(--ring-duration, 900ms) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.score-number-pop {
+  animation: score-number-pop 420ms cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+
+.score-label-fade {
+  animation: score-label-fade 320ms ease-out forwards;
+}
+
+.score-tick-fade {
+  animation: score-tick-fade 400ms ease-out forwards;
+  animation-delay: var(--ring-duration, 900ms);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-ring-arc,
+  .score-number-pop,
+  .score-label-fade,
+  .score-tick-fade {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
