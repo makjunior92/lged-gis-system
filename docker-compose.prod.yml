@@ -1,0 +1,21 @@
+# Production overrides — use: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+services:
+  db:
+    ports: !reset []
+
+  backend:
+    ports: !reset []
+    environment:
+      ENVIRONMENT: production
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      SEED_ON_STARTUP: "true"
+      SEED_RESET_DEMO_PASSWORDS: "false"
+      SEED_IMPORT_BOUNDARIES: "true"
+      UVICORN_RELOAD: ""
+      UVICORN_WORKERS: "2"
+    volumes: !reset []
+
+  frontend:
+    ports:
+      - "3000:80"
