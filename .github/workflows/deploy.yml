@@ -52,6 +52,9 @@ jobs:
             cd "${{ env.DEPLOY_PATH }}"
             docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
             docker compose -f docker-compose.yml -f docker-compose.prod.yml ps
+            if [[ -x deploy/scripts/setup-host-nginx.sh ]]; then
+              bash deploy/scripts/setup-host-nginx.sh || true
+            fi
 
       - name: Verify frontend is up
         uses: appleboy/ssh-action@v1.2.0
@@ -63,8 +66,8 @@ jobs:
           script: |
             set -euo pipefail
             for i in $(seq 1 30); do
-              if curl -sf http://127.0.0.1:3000/ > /dev/null; then
-                echo "Frontend OK"
+              if curl -sf http://127.0.0.1:3000/lged/ > /dev/null; then
+                echo "Frontend OK at /lged/"
                 exit 0
               fi
               sleep 5

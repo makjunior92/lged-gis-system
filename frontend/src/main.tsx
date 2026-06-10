@@ -10,10 +10,13 @@ import { AuthProvider } from './contexts/AuthContext';
 import { I18nProvider } from './contexts/I18nContext';
 import './index.css';
 
+// BASE_URL is "/" locally and "/lged/" in production subpath builds.
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined;
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename={routerBasename}>
         <I18nProvider>
           <AuthProvider>
             <App />

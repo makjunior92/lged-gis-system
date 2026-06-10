@@ -4,7 +4,11 @@ import path from 'node:path';
 
 // Vite dev/build config. In Docker we serve the built assets via nginx;
 // dev server runs on 5173 and proxies /api to the backend container (or localhost).
+// Production VPS uses VITE_BASE_PATH=/lged/ (see docker-compose.prod.yml).
+const basePath = process.env.VITE_BASE_PATH || '/';
+
 export default defineConfig({
+  base: basePath,
   plugins: [react()],
   resolve: {
     alias: {

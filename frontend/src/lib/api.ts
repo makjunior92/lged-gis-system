@@ -1,9 +1,16 @@
 import axios, { AxiosError } from 'axios';
 
 // In dev, Vite proxies /api to the backend (see vite.config.ts).
-// In production (Docker), nginx proxies /api to the backend service.
-// Both make the relative base URL "/api/v1" the right default.
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api/v1';
+// In production (Docker), nginx proxies /api (or /lged/api) to the backend service.
+function resolveApiBaseUrl(): string {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}api/v1`.replace(/\/{2,}/g, '/');
+}
+
+const BASE_URL = resolveApiBaseUrl();
 
 const TOKEN_KEY = 'lged.access_token';
 const REFRESH_KEY = 'lged.refresh_token';
