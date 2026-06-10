@@ -17,5 +17,11 @@ services:
     volumes: !reset []
 
   frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_BASE_PATH: /lged/
+        NGINX_CONF: nginx.lged.conf
     ports:
-      - "3000:80"
+      # Bind to localhost only — public traffic enters via host nginx (quantumflux.cloud/lged).
+      - "127.0.0.1:3000:80"

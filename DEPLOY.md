@@ -1,6 +1,39 @@
 # Deployment & CI/CD
 
-Production runs on the Hostinger VPS at `http://168.231.77.12:3000`.
+Production URL: **https://quantumflux.cloud/lged/** (after DNS + TLS).  
+Direct VPS (legacy): `http://168.231.77.12:3000/lged/` (localhost-bound in prod compose).
+
+## Domain setup (`quantumflux.cloud/lged`)
+
+### You must do (Hostinger DNS)
+
+Point the domain to your VPS IP:
+
+| Type | Name | Value |
+| --- | --- | --- |
+| **A** | `@` | `168.231.77.12` |
+| **A** | `www` | `168.231.77.12` |
+
+Wait until `dig quantumflux.cloud +short` shows `168.231.77.12` (not another IP).
+
+### Server `.env` (CORS)
+
+On the VPS at `/opt/lged-gis-system/.env`:
+
+```env
+CORS_ORIGINS=https://quantumflux.cloud,http://quantumflux.cloud
+```
+
+Restart backend after editing: `docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d backend`
+
+### What deploy does automatically
+
+1. Builds frontend with base path `/lged/`
+2. Binds Docker frontend to `127.0.0.1:3000` (not public)
+3. Runs `deploy/scripts/setup-host-nginx.sh` — host nginx proxies `/lged/` → Docker
+4. Certbot requests HTTPS when DNS is correct
+
+Manual nginx setup: `bash /opt/lged-gis-system/deploy/scripts/setup-host-nginx.sh`
 
 ## How it works
 
