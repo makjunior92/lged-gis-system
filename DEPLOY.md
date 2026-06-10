@@ -79,40 +79,30 @@ The deploy workflow no longer uses a `production` environment gate, so deploys r
 
 If you add a `production` environment later (**Settings → Environments**), leave **Required reviewers** empty for solo development — otherwise deploy jobs will wait for manual approval in Actions.
 
-### 4. Branch rules for solo developers
+### 4. Branch rules (configured for solo dev)
 
-**Important:** GitHub does **not** let you approve your own pull request — the **Approve** button is always disabled for the PR author. That is platform-wide, not a setting you can change.
-
-As repo owner you can still **merge your own PR** without anyone else's approval. You do not need to click Approve.
-
-Your private repo is on the **free GitHub plan**. Advanced branch rulesets (require PR + required reviews + bypass lists via API) need **GitHub Pro** or a **public** repository. Attempting to configure them returns:
-
-`Upgrade to GitHub Pro or make this repository public to enable this feature.`
-
-**Recommended setup on free private (matches your screenshot):**
+The repo is **public** and uses ruleset **`main-solo-dev`** on `main`:
 
 | Rule | Setting |
 | --- | --- |
 | Restrict deletions | On |
 | Block force pushes | On |
-| Require a pull request before merging | Off *(simplest)* or On **without** "Require approvals" |
-| Require status checks to pass | Optional — turn on after CI has run once |
+| Require a pull request before merging | On |
+| Required approving reviews | **0** (no reviewer needed) |
+| Required status checks | `Frontend build & lint`, `Backend smoke tests` |
+| Bypass list | **makjunior92** + **Repository admin** (always) |
 
-**If "Require a pull request" is on:** expand it and ensure **Require approvals** is **off**. Then open PR → wait for green CI → click **Merge pull request** (ignore the gray Approve button).
+**Important:** GitHub does **not** let you **Approve** your own pull request — the Approve button stays gray for the PR author. That is platform-wide.
 
-**To test CI/CD without a PR:** push directly to `main`, or use **Actions → CI / Deploy to VPS → Run workflow**.
+As owner you can still **merge your own PR** because required reviews are **0** and you are on the bypass list. Use **Merge pull request** — you do not need Approve.
 
-Repository settings already enabled via CLI: `delete_branch_on_merge`, `allow_update_branch`.
+**Day-to-day flow:** feature branch → PR → CI green → **Merge** → auto-deploy.
 
-### 5. Branch protection (GitHub Pro or public repo only)
+**Bypass:** as repo admin you can also push directly to `main` or merge even if a check is misconfigured.
 
-**Settings → Branches → Add rule** for `main`:
+**Manual workflow run:** **Actions → CI** or **Deploy to VPS → Run workflow**.
 
-- Require a pull request before merging
-- Require status checks: `Frontend build & lint`, `Backend smoke tests`
-- Add yourself (or Repository admin role) to the **Bypass list** with mode **Always**
-
-Then merges only deploy code that passed CI, and you can bypass review rules as admin.
+Repository settings: `delete_branch_on_merge`, `allow_update_branch`.
 
 ## Manual deploy (fallback)
 
