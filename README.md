@@ -58,7 +58,7 @@ On submit, flags projects with same union + type + (same chairman OR coordinates
 
 ## Deployment & CI/CD
 
-Production deploys automatically when changes merge to `main`. See [`DEPLOY.md`](DEPLOY.md) for VPS setup, GitHub secrets, and manual fallback commands.
+Production deploys automatically when changes merge to `main`. See [`DEPLOY.md`](DEPLOY.md) for VPS setup, GitHub secrets, and manual fallback commands. added ssh and bypass rules
 
 ## Per-service docs
 
