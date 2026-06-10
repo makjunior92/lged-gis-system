@@ -56,6 +56,10 @@ Demo passwords are reset to these values whenever the backend starts with `SEED_
 
 On submit, flags projects with same union + type + (same chairman OR coordinates within 50 m).
 
+## Deployment & CI/CD
+
+Production deploys automatically when changes merge to `main`. See [`DEPLOY.md`](DEPLOY.md) for VPS setup, GitHub secrets, and manual fallback commands.
+
 ## Per-service docs
 
 - [`backend/README.md`](backend/README.md)
