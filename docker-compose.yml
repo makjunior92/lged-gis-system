@@ -55,9 +55,6 @@ services:
     container_name: lged_frontend
     depends_on:
       - backend
-    ports:
-      # Host port 3000 -> nginx 80 inside the container.
-      - "3000:80"
     restart: unless-stopped
 
 volumes:
