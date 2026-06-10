@@ -14,7 +14,7 @@ interface Props {
 export default function SiteLogo({ size = 'md', className }: Props) {
   return (
     <img
-      src="/govt-logo.png"
+      src={`${import.meta.env.BASE_URL}govt-logo.png`}
       alt=""
       className={cn('shrink-0 rounded-full object-cover', SIZES[size], className)}
       aria-hidden
