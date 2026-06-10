@@ -75,21 +75,34 @@ You can reuse your existing `~/.ssh/id_ed25519` instead, but a deploy-only key i
 
 ### 3. GitHub environment (optional)
 
-The deploy workflow uses a `production` environment. In **Settings → Environments → production** you can:
+The deploy workflow no longer uses a `production` environment gate, so deploys run automatically after merge without a separate approval step.
 
-- Require manual approval before deploy
-- Restrict deploys to the `main` branch
+If you add a `production` environment later (**Settings → Environments**), leave **Required reviewers** empty for solo development — otherwise deploy jobs will wait for manual approval in Actions.
 
-If you skip creating the environment, GitHub creates it automatically on first deploy.
+### 4. Branch rules (configured for solo dev)
 
-### 4. Branch protection (recommended)
+The repo is **public** and uses ruleset **`main-solo-dev`** on `main`:
 
-**Settings → Branches → Add rule** for `main`:
+| Rule | Setting |
+| --- | --- |
+| Restrict deletions | On |
+| Block force pushes | On |
+| Require a pull request before merging | On |
+| Required approving reviews | **0** (no reviewer needed) |
+| Required status checks | `Frontend build & lint`, `Backend smoke tests` |
+| Bypass list | **makjunior92** + **Repository admin** (always) |
 
-- Require a pull request before merging
-- Require status checks: `Frontend build & lint`, `Backend smoke tests`
+**Important:** GitHub does **not** let you **Approve** your own pull request — the Approve button stays gray for the PR author. That is platform-wide.
 
-Then merges only deploy code that passed CI.
+As owner you can still **merge your own PR** because required reviews are **0** and you are on the bypass list. Use **Merge pull request** — you do not need Approve.
+
+**Day-to-day flow:** feature branch → PR → CI green → **Merge** → auto-deploy.
+
+**Bypass:** as repo admin you can also push directly to `main` or merge even if a check is misconfigured.
+
+**Manual workflow run:** **Actions → CI** or **Deploy to VPS → Run workflow**.
+
+Repository settings: `delete_branch_on_merge`, `allow_update_branch`.
 
 ## Manual deploy (fallback)
 
