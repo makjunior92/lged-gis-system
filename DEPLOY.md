@@ -75,21 +75,44 @@ You can reuse your existing `~/.ssh/id_ed25519` instead, but a deploy-only key i
 
 ### 3. GitHub environment (optional)
 
-The deploy workflow uses a `production` environment. In **Settings → Environments → production** you can:
+The deploy workflow no longer uses a `production` environment gate, so deploys run automatically after merge without a separate approval step.
 
-- Require manual approval before deploy
-- Restrict deploys to the `main` branch
+If you add a `production` environment later (**Settings → Environments**), leave **Required reviewers** empty for solo development — otherwise deploy jobs will wait for manual approval in Actions.
 
-If you skip creating the environment, GitHub creates it automatically on first deploy.
+### 4. Branch rules for solo developers
 
-### 4. Branch protection (recommended)
+**Important:** GitHub does **not** let you approve your own pull request — the **Approve** button is always disabled for the PR author. That is platform-wide, not a setting you can change.
+
+As repo owner you can still **merge your own PR** without anyone else's approval. You do not need to click Approve.
+
+Your private repo is on the **free GitHub plan**. Advanced branch rulesets (require PR + required reviews + bypass lists via API) need **GitHub Pro** or a **public** repository. Attempting to configure them returns:
+
+`Upgrade to GitHub Pro or make this repository public to enable this feature.`
+
+**Recommended setup on free private (matches your screenshot):**
+
+| Rule | Setting |
+| --- | --- |
+| Restrict deletions | On |
+| Block force pushes | On |
+| Require a pull request before merging | Off *(simplest)* or On **without** "Require approvals" |
+| Require status checks to pass | Optional — turn on after CI has run once |
+
+**If "Require a pull request" is on:** expand it and ensure **Require approvals** is **off**. Then open PR → wait for green CI → click **Merge pull request** (ignore the gray Approve button).
+
+**To test CI/CD without a PR:** push directly to `main`, or use **Actions → CI / Deploy to VPS → Run workflow**.
+
+Repository settings already enabled via CLI: `delete_branch_on_merge`, `allow_update_branch`.
+
+### 5. Branch protection (GitHub Pro or public repo only)
 
 **Settings → Branches → Add rule** for `main`:
 
 - Require a pull request before merging
 - Require status checks: `Frontend build & lint`, `Backend smoke tests`
+- Add yourself (or Repository admin role) to the **Bypass list** with mode **Always**
 
-Then merges only deploy code that passed CI.
+Then merges only deploy code that passed CI, and you can bypass review rules as admin.
 
 ## Manual deploy (fallback)
 
