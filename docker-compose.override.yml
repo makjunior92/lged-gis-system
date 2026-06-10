@@ -1,0 +1,5 @@
+# Local dev overrides — auto-merged by `docker compose up` (not used in prod deploy).
+services:
+  frontend:
+    ports:
+      - "3000:80"

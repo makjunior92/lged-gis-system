@@ -50,8 +50,8 @@ jobs:
           script: |
             set -euo pipefail
             cd "${{ env.DEPLOY_PATH }}"
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml ps
+            COMPOSE_FILE=docker-compose.yml:docker-compose.prod.yml docker compose up -d --build
+            COMPOSE_FILE=docker-compose.yml:docker-compose.prod.yml docker compose ps
             if [[ -x deploy/scripts/setup-host-nginx.sh ]]; then
               bash deploy/scripts/setup-host-nginx.sh || true
             fi
@@ -74,5 +74,5 @@ jobs:
             done
             echo "Frontend health check failed"
             cd "${{ env.DEPLOY_PATH }}"
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml logs --tail=80
+            COMPOSE_FILE=docker-compose.yml:docker-compose.prod.yml docker compose -f docker-compose.yml -f docker-compose.prod.yml logs --tail=80
             exit 1
