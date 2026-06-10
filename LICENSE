@@ -1,0 +1,71 @@
+# Proprietary Software License Agreement
+
+**Upazila Project Database** (LGED Rural Infrastructure GIS Management System)
+
+Copyright (c) 2026 Mak Junior. All Rights Reserved.
+
+---
+
+## 1. Ownership
+
+This software, including all source code, object code, documentation, database schemas,
+workflow designs, user interface layouts, assessment engine logic, and related materials
+(collectively, the "Software"), is the exclusive property of the copyright holder.
+
+## 2. Grant of License
+
+No license is granted to any person or entity except as explicitly authorized in writing
+by the copyright holder. Access to a deployed instance of the Software does not confer
+any ownership or redistribution rights.
+
+## 3. Restrictions
+
+Without prior written permission, you may **not**:
+
+- Copy, reproduce, or duplicate the Software or any substantial part of its design
+- Modify, adapt, translate, or create derivative works based on the Software
+- Reverse engineer, decompile, or disassemble the Software
+- Distribute, sublicense, lease, sell, or publicly display the Software
+- Use the Software's workflow, assessment methodology, or UI design to build a competing
+  product or service
+- Remove or alter copyright, trademark, or proprietary notices
+
+## 4. Authorized Use
+
+Authorized users may access and use the Software solely for its intended purpose:
+managing upazila infrastructure project applications within organizations approved by
+the copyright holder.
+
+## 5. Confidentiality
+
+The architecture, business rules, assessment scoring logic, and implementation details
+of the Software are confidential and proprietary.
+
+## 6. No Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, AND NON-INFRINGEMENT.
+
+## 7. Limitation of Liability
+
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+LIABILITY ARISING FROM THE USE OF OR INABILITY TO USE THE SOFTWARE.
+
+## 8. Enforcement
+
+Unauthorized use may result in civil and criminal penalties under applicable copyright
+and intellectual property laws, including the Copyright Act of Bangladesh and
+international treaties.
+
+## 9. Contact
+
+For licensing inquiries or written permission requests, contact the repository owner:
+
+**makjunior92@gmail.com**
+
+---
+
+*By accessing, cloning, or using this repository or deployed application, you acknowledge
+that you have read and agree to be bound by these terms unless a separate written
+agreement applies.*

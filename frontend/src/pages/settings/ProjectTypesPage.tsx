@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 import { createProjectType, deleteProjectType, listProjectTypes } from '@/api/projectTypes';
+import { TableScroll } from '@/components/layout/PageContainer';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { useT } from '@/contexts/I18nContext';
@@ -59,6 +60,7 @@ export default function ProjectTypesPage() {
         </div>
       </div>
 
+      <TableScroll>
       <table className="min-w-full divide-y divide-slate-200 rounded-lg border bg-white text-sm">
         <thead className="bg-slate-50">
           <tr>
@@ -90,6 +92,7 @@ export default function ProjectTypesPage() {
           ))}
         </tbody>
       </table>
+      </TableScroll>
     </div>
   );
 }

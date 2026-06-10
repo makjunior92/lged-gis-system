@@ -69,7 +69,7 @@ export default function ApplicationDetailPage() {
   if (!project) return <div className="p-6">{t('projects.notFound')}</div>;
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
+    <div className="mx-auto w-full max-w-4xl space-y-4 sm:space-y-6">
       <button
         type="button"
         onClick={() => navigate(-1)}
@@ -79,7 +79,7 @@ export default function ApplicationDetailPage() {
         {t('common.back')}
       </button>
 
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">{project.project_name}</h1>
           <p className="font-mono text-sm text-slate-500">{project.project_code}</p>

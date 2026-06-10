@@ -118,12 +118,12 @@ export default function PioProjectReviewPage() {
   if (!project) return <div className="p-6">{t('projects.notFound')}</div>;
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
+    <div className="mx-auto w-full max-w-4xl space-y-4 sm:space-y-6">
       <button type="button" onClick={() => navigate('/pio/review')} className="inline-flex items-center gap-1 text-sm text-slate-600">
         <ArrowLeft size={16} />{t('common.back')}
       </button>
 
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">{project.project_name}</h1>
           <p className="font-mono text-sm text-slate-500">{project.project_code}</p>
@@ -148,7 +148,7 @@ export default function PioProjectReviewPage() {
         locale={locale}
       />
 
-      <form className="space-y-4 rounded-lg border border-slate-200 bg-white p-6 shadow-sm" onSubmit={handleSubmit((v) => saveMutation.mutate(v))}>
+      <form className="space-y-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-6" onSubmit={handleSubmit((v) => saveMutation.mutate(v))}>
         <h2 className="text-lg font-semibold text-slate-900">{t('pio.editSection')}</h2>
         <DynamicFormRenderer
           fields={pioFields}
@@ -163,7 +163,7 @@ export default function PioProjectReviewPage() {
         <Button type="submit" variant="secondary" isLoading={saveMutation.isPending}>{t('common.save')}</Button>
       </form>
 
-      <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <Button type="button" variant="outline" onClick={() => recheckMutation.mutate()} isLoading={recheckMutation.isPending}>
           {t('pio.recheckAssessment')}
         </Button>

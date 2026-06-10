@@ -8,6 +8,7 @@ import {
   updateAssessmentConfig,
   updateAssessmentRule,
 } from '@/api/assessmentSettings';
+import { TableScroll } from '@/components/layout/PageContainer';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { useT } from '@/contexts/I18nContext';
@@ -132,6 +133,7 @@ export default function AssessmentRulesPage() {
         </p>
       </div>
 
+      <TableScroll>
       <table className="min-w-full divide-y divide-slate-200 rounded-lg border bg-white text-sm">
         <thead className="bg-slate-50">
           <tr>
@@ -195,6 +197,7 @@ export default function AssessmentRulesPage() {
           ))}
         </tbody>
       </table>
+      </TableScroll>
     </div>
   );
 }

@@ -73,7 +73,7 @@ export default function ProjectDetailsReadonly({
   if (!fields.length) return null;
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
       <h2 className="mb-4 text-lg font-semibold text-slate-900">{title}</h2>
 
       <div className="space-y-6">
