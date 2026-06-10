@@ -30,6 +30,8 @@ export const en: Dict = {
   'nav.reports': 'Reports & Analytics',
   'nav.userMgmt': 'User Management',
   'nav.settings': 'Settings',
+  'nav.collapseSidebar': 'Collapse sidebar',
+  'nav.expandSidebar': 'Expand sidebar',
 
   // Common
   'common.search': 'Search',
@@ -363,6 +365,8 @@ export const bn: Dict = {
   'nav.reports': 'প্রতিবেদন ও বিশ্লেষণ',
   'nav.userMgmt': 'ব্যবহারকারী ব্যবস্থাপনা',
   'nav.settings': 'সেটিংস',
+  'nav.collapseSidebar': 'সাইডবার সংকুচিত করুন',
+  'nav.expandSidebar': 'সাইডবার প্রসারিত করুন',
 
   'common.search': 'অনুসন্ধান',
   'common.save': 'সংরক্ষণ',

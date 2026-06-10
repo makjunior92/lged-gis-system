@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 import { getFormSchema, updateFieldPermissions } from '@/api/formSettings';
+import { TableScroll } from '@/components/layout/PageContainer';
 import Button from '@/components/ui/Button';
 import { useT } from '@/contexts/I18nContext';
 import { extractErrorMessage } from '@/lib/api';
@@ -56,6 +57,7 @@ export default function PioFieldPermissionsPage() {
         <p className="text-sm text-slate-500">{t('settings.pioPermissionsDesc')}</p>
       </div>
 
+      <TableScroll>
       <table className="min-w-full divide-y divide-slate-200 rounded-lg border bg-white text-sm">
         <thead className="bg-slate-50">
           <tr>
@@ -81,6 +83,7 @@ export default function PioFieldPermissionsPage() {
           })}
         </tbody>
       </table>
+      </TableScroll>
 
       <Button onClick={() => saveMutation.mutate()} isLoading={saveMutation.isPending}>
         {t('common.save')}

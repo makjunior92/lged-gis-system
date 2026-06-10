@@ -96,7 +96,7 @@ export default function LoginPage() {
           </Button>
         </form>
 
-        <div className="mt-6 rounded-md border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+        <div className="mt-6 overflow-x-auto rounded-md border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
           <div className="font-semibold mb-1 text-slate-700">{t('login.demoTitle')}</div>
           <div><code>admin / Admin@123</code> &nbsp;(Super Admin)</div>
           <div><code>pio.feni / Flow@2026</code> &nbsp;(PIO)</div>
